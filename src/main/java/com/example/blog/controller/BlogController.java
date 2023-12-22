@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +34,11 @@ public class BlogController {
 
     @GetMapping("/articles")
     @Operation(summary = "Article 전체 조회", description = "전체 Article을 조회합니다.")
-    public ResponseEntity<List<ArticleResponse>> findAllArticles() {
-        List<ArticleResponse> articles = blogService.findAll()
-                .stream()
-                .map(ArticleResponse::new)
-                .toList();
+    public ResponseEntity<Page<Article>> findAllArticlesByPage(
+            @RequestParam(value="pageNo", required = false, defaultValue= "0") String pageNo,
+            @RequestParam(value="pageSize", required = false, defaultValue= "10") String pageSize) {
 
         return ResponseEntity.ok()
-                .body(articles);
+                .body(blogService.findAll(pageNo, pageSize));
     }
 }

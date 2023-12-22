@@ -5,6 +5,8 @@ import com.example.blog.dto.AddArticleRequest;
 import com.example.blog.repository.BlogRepository;
 import com.example.blog.service.BlogService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +21,8 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.save(request.toEntity());
     }
 
-    public List<Article> findAll() {
-        return blogRepository.findAll();
+    public Page<Article> findAll(String pageNo, String pageSize) {
+        PageRequest pageRequest = PageRequest.of(Integer.parseInt(pageNo), Integer.parseInt(pageSize));
+        return blogRepository.findAll(pageRequest);
     }
 }
