@@ -26,7 +26,7 @@ public class BlogController {
     @PostMapping("/article")
     @ResponseStatus(code = HttpStatus.CREATED)
     @Operation(summary = "Article 작성", description = "Article을 작성합니다.")
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
+    public ResponseEntity<Article> createArticle(@RequestBody AddArticleRequest request) {
         Article savedArticle = blogService.save(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -36,7 +36,7 @@ public class BlogController {
     @GetMapping("/articles")
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Article 전체 조회", description = "전체 Article을 조회합니다.")
-    public ResponseEntity<Page<Article>> findAllArticlesByPage(
+    public ResponseEntity<Page<Article>> getAllArticles(
             @RequestParam(value="pageNo", required = false, defaultValue= "0") String pageNo,
             @RequestParam(value="pageSize", required = false, defaultValue= "10") String pageSize) {
 
@@ -47,7 +47,7 @@ public class BlogController {
     @GetMapping("/articles/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Article 조회", description = "개별 Article을 조회합니다.")
-    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
+    public ResponseEntity<ArticleResponse> getArticleById(@PathVariable long id) {
         Article article = blogService.findById(id);
 
         return ResponseEntity.ok()
