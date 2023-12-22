@@ -24,6 +24,7 @@ public class BlogController {
     private final BlogService blogService;
 
     @PostMapping("/article")
+    @ResponseStatus(code = HttpStatus.CREATED)
     @Operation(summary = "Article 작성", description = "Article을 작성합니다.")
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
         Article savedArticle = blogService.save(request);
@@ -33,6 +34,7 @@ public class BlogController {
     }
 
     @GetMapping("/articles")
+    @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Article 전체 조회", description = "전체 Article을 조회합니다.")
     public ResponseEntity<Page<Article>> findAllArticlesByPage(
             @RequestParam(value="pageNo", required = false, defaultValue= "0") String pageNo,
