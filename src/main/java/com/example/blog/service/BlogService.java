@@ -9,4 +9,5 @@ import java.util.List;
 public interface BlogService {
     Article save(AddArticleRequest request);
     Page<Article> findAll(String pageNo, String pageSize);
+    Article findById(long id);
 }

@@ -2,6 +2,7 @@ package com.example.blog.service.impl;
 
 import com.example.blog.domain.Article;
 import com.example.blog.dto.AddArticleRequest;
+import com.example.blog.exception.ArticleNotFoundException;
 import com.example.blog.repository.BlogRepository;
 import com.example.blog.service.BlogService;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,10 @@ public class BlogServiceImpl implements BlogService {
     public Page<Article> findAll(String pageNo, String pageSize) {
         PageRequest pageRequest = PageRequest.of(Integer.parseInt(pageNo), Integer.parseInt(pageSize));
         return blogRepository.findAll(pageRequest);
+    }
+
+    public Article findById(long id) {
+        return blogRepository.findById(id)
+                .orElseThrow(() -> new ArticleNotFoundException("not found: " + id));
     }
 }

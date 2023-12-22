@@ -43,4 +43,14 @@ public class BlogController {
         return ResponseEntity.ok()
                 .body(blogService.findAll(pageNo, pageSize));
     }
+
+    @GetMapping("/articles/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    @Operation(summary = "Article 조회", description = "개별 Article을 조회합니다.")
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
+        Article article = blogService.findById(id);
+
+        return ResponseEntity.ok()
+                .body(new ArticleResponse(article));
+    }
 }
