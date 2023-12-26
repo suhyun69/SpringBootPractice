@@ -6,6 +6,7 @@ import com.example.blog.dto.ArticleResponse;
 import com.example.blog.service.BlogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +27,7 @@ public class BlogController {
     @PostMapping("/article")
     @ResponseStatus(code = HttpStatus.CREATED)
     @Operation(summary = "Article 작성", description = "Article을 작성합니다.")
-    public ResponseEntity<Article> createArticle(@RequestBody AddArticleRequest request) {
+    public ResponseEntity<Article> createArticle(@Valid @RequestBody AddArticleRequest request) {
         Article savedArticle = blogService.save(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)

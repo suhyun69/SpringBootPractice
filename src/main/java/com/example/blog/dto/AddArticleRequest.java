@@ -1,6 +1,8 @@
 package com.example.blog.dto;
 
 import com.example.blog.domain.Article;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +12,14 @@ import lombok.NoArgsConstructor;
 @Getter
 public class AddArticleRequest {
 
+    @NotNull
     private String title;
+
+    @NotNull(message = "content는 null일 수 없습니다.")
     private String content;
+
+    @Min(value = 5, message = "최소값은 5입니다")
+    private int test;
 
     public Article toEntity() {
 
