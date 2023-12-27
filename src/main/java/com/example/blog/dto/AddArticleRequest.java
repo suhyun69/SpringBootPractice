@@ -12,14 +12,11 @@ import lombok.NoArgsConstructor;
 @Getter
 public class AddArticleRequest {
 
-    @NotNull
+    @NotNull(message = "title은 null일 수 없습니다")
     private String title;
 
     @NotNull(message = "content는 null일 수 없습니다.")
     private String content;
-
-    @Min(value = 5, message = "최소값은 5입니다")
-    private int test;
 
     public Article toEntity() {
 
