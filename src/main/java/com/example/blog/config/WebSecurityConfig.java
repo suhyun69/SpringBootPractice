@@ -27,8 +27,6 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests(authorize -> authorize.anyRequest().permitAll()) // 특정 경로에 대한 Access 설정
-                .logout(logout -> logout // 로그아웃 설정
-                        .invalidateHttpSession(true)) // 로그아웃 이후에 세션을 전체 삭제할 지 여부를 설정
                 .csrf(csrf -> csrf.disable()) // CSRF 설정 비활성화. CSRF 공격을 방지하기 위해서는 활성하는 게 좋지만 실습을 편리하게 하기 위해 비활성화한다
                 .build();
     }
