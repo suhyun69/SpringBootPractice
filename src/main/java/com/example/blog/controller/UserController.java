@@ -3,6 +3,7 @@ package com.example.blog.controller;
 import com.example.blog.config.jwt.TokenProvider;
 import com.example.blog.domain.User;
 import com.example.blog.dto.AddUserRequest;
+import com.example.blog.dto.ArticleResponse;
 import com.example.blog.dto.SignInRequest;
 import com.example.blog.dto.SignInResponse;
 import com.example.blog.service.UserService;
@@ -76,5 +77,12 @@ public class UserController {
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @GetMapping("/whoami")
+    public ResponseEntity<String> whoami() {
+
+        return ResponseEntity.ok()
+                .body(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }
